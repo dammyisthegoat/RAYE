@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0d13">
+  <meta name="description" content="DAYFRAME — a calm, practical personal execution system.">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <title>DAYFRAME — Make the day count</title>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="DAYFRAME home" data-nav="today">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span><strong>DAYFRAME</strong><small>PERSONAL EXECUTION SYSTEM</small></span>
+      </a>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <button data-nav="today" class="nav-item active"><span class="nav-symbol">◷</span>Today</button>
+        <button data-nav="week" class="nav-item"><span class="nav-symbol">▦</span>Week</button>
+        <button data-nav="goals" class="nav-item"><span class="nav-symbol">◎</span>Goals</button>
+        <button data-nav="projects" class="nav-item"><span class="nav-symbol">◇</span>Projects</button>
+        <button data-nav="progress" class="nav-item"><span class="nav-symbol">↗</span>Progress</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="week-chip"><span class="status-dot"></span><span><b>YOUR WEEK</b><small id="sidebar-week">A fresh frame</small></span></div>
+        <button data-nav="settings" class="nav-item settings-nav"><span class="nav-symbol">⚙</span>Settings</button>
+        <div class="sidebar-foot">Small actions. Honest progress.</div>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark"><span></span><span></span><span></span></span><strong>DAYFRAME</strong></div>
+        <div class="breadcrumbs"><span>WORKSPACE</span><span class="crumb-slash">/</span><b id="page-label">TODAY</b></div>
+        <div class="top-actions"><span class="local-save"><i></i> Saved locally</span><button class="icon-button" id="quick-add" title="Add a task" aria-label="Add a task">＋</button></div>
+      </header>
+      <section id="view" class="view" tabindex="-1"></section>
+      <footer class="app-footer"><span>DAYFRAME <span class="muted">/</span> Build a week you can actually finish.</span><span id="storage-state">Your data stays on this device.</span></footer>
+    </main>
+  </div>
+  <div id="toast-region" class="toast-region" aria-live="polite"></div>
+  <dialog id="task-dialog" class="modal">
+    <form id="task-form" method="dialog">
+      <div class="modal-head"><div><p class="eyebrow">TASK EDITOR</p><h2 id="task-dialog-title">Create a task</h2></div><button type="button" class="icon-button" data-close-dialog aria-label="Close">×</button></div>
+      <input type="hidden" id="task-id">
+      <label>Task title<input id="task-title" required maxlength="120" placeholder="What is the next action?"></label>
+      <label>Short instructions<textarea id="task-description" rows="3" maxlength="600" placeholder="What should you do?"></textarea></label>
+      <div class="form-grid">
+        <label>Goal<select id="task-goal"></select></label>
+        <label>Project<select id="task-project"><option value="">No project</option></select></label>
+        <label>Assigned day<select id="task-day"><option value="0">Monday</option><option value="1">Tuesday</option><option value="2">Wednesday</option><option value="3">Thursday</option><option value="4">Friday</option><option value="5">Saturday</option><option value="6">Sunday</option></select></label>
+        <label>Priority<select id="task-priority"><option value="1">1 · Low</option><option value="2">2 · Normal</option><option value="3">3 · High</option><option value="4">4 · Urgent</option></select></label>
+      </div>
+      <label>Completion criteria<input id="task-criteria" maxlength="240" placeholder="I can call this done when…"></label>
+      <label>Optional deadline<input id="task-deadline" type="date"></label>
+      <label>Depends on<select id="task-dependency"><option value="">No dependency</option></select></label>
+      <div class="modal-actions"><button type="button" class="button secondary" data-close-dialog>Cancel</button><button type="submit" class="button primary">Save task</button></div>
+    </form>
+  </dialog>
+  <dialog id="note-dialog" class="modal small-modal">
+    <form id="note-form" method="dialog"><div class="modal-head"><div><p class="eyebrow">TASK NOTES</p><h2>Add a note</h2></div><button type="button" class="icon-button" data-close-dialog>×</button></div><input type="hidden" id="note-task-id"><label>What should you remember?<textarea id="note-text" rows="5" maxlength="3000" placeholder="Progress, mistakes, ideas…"></textarea></label><div class="modal-actions"><button type="button" class="button secondary" data-close-dialog>Cancel</button><button class="button primary" type="submit">Save note</button></div></form>
+  </dialog>
+  <input id="import-file" type="file" accept="application/json,.json" hidden>
+  <script src="./app.js" defer></script>
+</body>
+</html>
